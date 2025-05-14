@@ -3,4 +3,4 @@ tensorflow
 streamlit
 numpy
 tensorflow==2.10.0
-python==3.8
+python==3.10
