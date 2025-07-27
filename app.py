@@ -18,18 +18,14 @@ classes = {
     3: ('df', 'dermatofibroma')
 }
 
-# عرض الواجهة مع اختيار الصورة
 st.title("Skin Cancer Detection")
 image_file = st.file_uploader("Upload an image...", type=["jpg", "png", "jpeg"])
 
 if image_file is not None:
-    # قراءة الصورة من الملف باستخدام PIL
     img = Image.open(image_file)
 
-    # تحويل الصورة إلى RGB
     img_rgb = img.convert("RGB")
 
-    # عرض الصورة الأصلية
     st.image(img_rgb, caption="Uploaded Image", use_column_width=True)
 
     # تصغير الصورة لـ 28x28 إذا كان الموديل مدرب على هذا الحجم
@@ -37,12 +33,10 @@ if image_file is not None:
     img_input = np.array(img_resized) / 255.0
     img_input = img_input.reshape(1, 28, 28, 3)  # Resize to match model input shape
 
-    # التنبؤ
     prediction = model.predict(img_input)
     class_index = np.argmax(prediction[0])
-    class_name = classes[class_index][1]  # اسم التشخيص
-    confidence = max(prediction[0]) * 100  # نسبة الثقة
+    class_name = classes[class_index][1]  
+    confidence = max(prediction[0]) * 100  
 
-    # عرض النتيجة
     st.write(f"Predicted Class: {class_name}")
     st.write(f"Confidence: {confidence:.2f}%")
